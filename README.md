@@ -57,5 +57,5 @@ Then if you execute the dynamic block (C-c C-c while somewhere between #+begin_s
 #+END_SRC
 ```
 and a nice svg file 
-![Alt text](https://raw.github.com/joukeHijlkema/myGantt/Tests/Images/Test.svg?sanitize=true)
-<img src="https://raw.github.com/joukeHijlkema/myGantt/Tests/Images/Test.svg?sanitize=true>
+![Alt text](https://raw.github.com/joukeHijlkema/myGantt/blob/master/Tests/Images/Test.svg?sanitize=true)
+<img src="https://raw.github.com/joukeHijlkema/myGantt/blob/master/Tests/Images/Test.svg?sanitize=true>
