@@ -56,6 +56,5 @@ Then if you execute the dynamic block (C-c C-c while somewhere between #+begin_s
                                                                                      ╚Decide what to do next 
 #+END_SRC
 ```
-and a nice svg file 
-![Alt text](./Tests/Images/Test.svg)
+and a nice svg file :
 <img src="./Tests/Images/Test.svg">
