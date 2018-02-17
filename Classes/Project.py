@@ -32,6 +32,12 @@ class Project:
     ## --------------------------------------------------------------
     def addTask (self,Task):
         self.Tasks[Task.Id]=Task
+        if Task.Parent != "":
+            Task.Parent = self.Tasks[Task.Parent]
+            # print("%s set parent to %s"%(Task.Id,Task.Parent.Id))
+        else:
+            Task.Parent = None
+        # Task.Print()
 
     ## --------------------------------------------------------------
     ## Description : parse the project
@@ -41,39 +47,30 @@ class Project:
     ## date   : 16-57-2018 14:57:24
     ## --------------------------------------------------------------
     def Parse (self):
+        # print("======== Start Parsing ==========")
         # find connections
+        tmax                    = self.Start
+        tmin                    = self.Start
         for t in self.Tasks:
-            tt = self.Tasks[t]
-            if len(tt.Parent) > 0:
-                self.Tasks[tt.Parent].addChild(tt)
+            tt                  = self.Tasks[t]
             if len(tt.Before)>0:
                 tt.setBefore(self.Tasks[tt.Before])
             if len(tt.After)>0:
                 tt.setAfter(self.Tasks[tt.After])
-            
+            if tt.Parent != None:
+                tt.Parent.addChild(tt)
+                
         # Update times
-        tmax = self.Start
-        tmin = self.Start
         for t in self.Tasks:
-            tt = self.Tasks[t]
-            for c in tt.Kids:
-                if tt.Start > c.Start :
-                    tt.Start = c.Start
-                if tt.End < c.End :
-                    tt.End = c.End
-                self.Start = min(self.Start,c.Start)
-                self.End   = max(self.End,c.End)
-                tt.Start   = min(self.Start,c.Start)
-                tt.End     = max(self.End,c.End)
+            tt         = self.Tasks[t]
+            self.Start = min(self.Start,tt.Start)
+            self.End   = max(self.End,tt.End)
+        self.Duration  = workdays.networkdays(self.Start,self.End)
+        self.gantt     = gantt.Project(name=self.Name)
+        
         for t in self.Tasks:
-            self.Tasks[t].checkTimes()
-        self.Duration = workdays.networkdays(self.Start,self.End)
-
-        self.gantt = gantt.Project(name=self.Name)
-        for t in self.Tasks:
-            tt = self.Tasks[t]
-            nt = gantt.Task(name=tt.Id,fullname=tt.Description,start=tt.Start,stop=tt.End,depends_of=tt.Before)
-            self.gantt.add_task(nt)
+            tt         = self.Tasks[t]
+            self.gantt.add_task(tt.makeGanttItem())
             
             
     ## --------------------------------------------------------------
@@ -99,8 +96,16 @@ class Project:
     ## date   : 16-50-2018 16:50:54
     ## --------------------------------------------------------------
     def printGantt (self):
-        str = "||- %s %s days"%(self.Name,self.Duration)
-        str+= "-"*(self.Duration-len(str))
+        str = "╔ %s %s days "%(self.Name,self.Duration)
+        # str+= "-"*(self.Duration-len(str))
+
+        for i in range(len(str),self.Duration):
+            if i%30==0:
+                str+="╬"
+            elif i%5==0:
+                str+="╩"
+            else:
+                str+="═"
         
         print(str)
         for t in self.Tasks:
@@ -114,5 +119,5 @@ class Project:
     ## Author : jouke hylkema
     ## date   : 16-05-2018 17:05:29
     ## --------------------------------------------------------------
-    def saveGantt (self,path):
-        self.gantt.make_svg_for_tasks(filename=path, today=arrow.now())
+    def saveGantt (self,path,scale):
+        self.gantt.make_svg_for_tasks(filename=path, today=arrow.now(),scale=scale)

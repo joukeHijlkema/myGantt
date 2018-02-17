@@ -10,6 +10,7 @@
 import re
 import arrow
 import workdays
+import gantt
 
 class Task:
     def __init__(self,items,start):
@@ -24,9 +25,14 @@ class Task:
         self.Before      = items[4].strip()
         self.After       = items[5].strip()
         self.Start       = items[6].strip()
-        if len(self.Start) ==0:
-            self.Start=start
-        self.End = arrow.get(workdays.workday(self.Start,self.Duration-1))
+        self.Type        = items[7].strip()
+        if len(self.Start) == 0:
+            self.Start   = start
+        else:
+            self.Start   = arrow.get(self.Start,"D/M/YYYY")
+        self.End         = arrow.get(workdays.workday(self.Start,self.Duration-1))
+        self.gItem       = None
+        self.Depends     = []
             
 
     ## --------------------------------------------------------------
@@ -37,8 +43,9 @@ class Task:
     ## date   : 16-22-2018 16:22:28
     ## --------------------------------------------------------------
     def setBefore (self,t):
-        self.End   = arrow.get(workdays.workday(t.Start,-1))
-        self.Start = arrow.get(workdays.workday(self.End, -(self.Duration)))
+        self.End    = arrow.get(workdays.workday(t.Start,-1))
+        self.Start  = arrow.get(workdays.workday(self.End, -(self.Duration)))
+        self.Before = t
         
     ## --------------------------------------------------------------
     ## Description : set before
@@ -48,9 +55,12 @@ class Task:
     ## date   : 16-22-2018 16:22:28
     ## --------------------------------------------------------------
     def setAfter (self,t):
-        self.Start = arrow.get(workdays.workday(t.End,+1))
+        # print("%s after %s (%s)"%(self.Id,t.Id,t.End))
+        if self.Start<t.End:
+            self.Start = arrow.get(workdays.workday(t.End,+1))
         self.End   = arrow.get(workdays.workday(self.Start,self.Duration-1))
-
+        self.Depends.append(t)
+        
     ## --------------------------------------------------------------
     ## Description : ad a child
     ## NOTE : 
@@ -59,8 +69,25 @@ class Task:
     ## date   : 16-53-2018 14:53:51
     ## --------------------------------------------------------------
     def addChild (self,Task):
+        # print("%s : parent = %s"%(Task.Id, self.Id))
         self.Kids.append(Task)
+        if Task.Start < self.Start:
+            Task.shiftTime(self.Start)
+        if self.End < Task.End:
+            self.End = Task.End
+        self.checkTimes()
 
+    ## --------------------------------------------------------------
+    ## Description : shift in time
+    ## NOTE : 
+    ## -
+    ## Author : jouke hylkema
+    ## date   : 16-10-2018 21:10:11
+    ## --------------------------------------------------------------
+    def shiftTime (self,Start):
+        self.Start   = Start
+        self.End     = arrow.get(workdays.workday(self.Start,self.Duration-1))
+        
     ## --------------------------------------------------------------
     ## Description : Calculate the duration
     ## NOTE : 
@@ -69,8 +96,8 @@ class Task:
     ## date   : 16-36-2018 14:36:51
     ## --------------------------------------------------------------
     def calcDuration (self,d):
-        m = re.search('(^\d+)([dwmy])',d)
-        coef = 0
+        m            = re.search('(^\d+)([dwmy])',d)
+        coef         = 0
         if m:
             if m.group(2) == "d":
                 coef = 1
@@ -121,14 +148,44 @@ class Task:
     ## date   : 16-44-2018 16:44:58
     ## --------------------------------------------------------------
     def printGantt (self,start):
-        s = workdays.networkdays(start,self.Start)-1
-        # print(s)
-        str = ""
-        str+= " "*s
-        str+= "|%s"%self.Description
-        s = self.Duration-len(self.Description)
-        # print("duration %s, len %s -> %s"%( self.Duration,len(self.Description),s))
+        if len(self.Kids) > 0:
+            sign = "╠"
+        else:
+            sign = "╚"
+        o        = workdays.networkdays(start,self.Start)-1
+        txt      = "%s%s "%(sign,self.Description)
+        s        = self.Duration-len(txt)
         if s > 0:
-            str+= "-"*s
+            txt+= "-"*s
+        str = " "*o+txt
         print(str)
         
+    ## --------------------------------------------------------------
+    ## Description : gItem
+    ## NOTE : return a gantt item
+    ## -
+    ## Author : jouke hylkema
+    ## date   : 16-47-2018 21:47:53
+    ## --------------------------------------------------------------
+    def makeGanttItem (self):
+        # print("gItem %s"%self.Id)
+        dd = []
+        for d in self.Depends:
+            dd.append(d.gItem)
+        if self.Parent !=None:
+            color="#807ACE"
+        else :
+            color="#92A094"
+        if self.Type=="KP":
+            self.gItem = gantt.Milestone(name=self.Id,
+                                         fullname=self.Description,
+                                         start=self.Start,
+                                         depends_of=dd)
+        else:
+            self.gItem = gantt.Task(name=self.Id,
+                                    fullname=self.Description,
+                                    start=self.Start,
+                                    stop=self.End,
+                                    depends_of=dd,
+                                    color=color)
+        return self.gItem

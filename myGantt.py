@@ -22,6 +22,6 @@ for l in fid:
         Proj.addTask(Task(items,Proj.Start))
 
 Proj.Parse()
-Proj.Print()
+# Proj.Print()
 Proj.printGantt()
-Proj.saveGantt(sys.argv[2])
+Proj.saveGantt(sys.argv[2],sys.argv[3])

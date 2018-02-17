@@ -8,320 +8,55 @@
 #+LATEX_HEADER: \usepackage{lmodern,textcomp}
 #+LATEX_HEADER: \graphicspath{/home/hylkema/Documents/Images}
 #+OPTIONS: toc:nil
-#+OPTIONS: num:2
-#+OPTIONS: title:nil
-
-* How to use this                                                  :noexport:
-** requirments
-- org-mode
-- yasnippets
-- MOM.cls , this is mine and needs to be either in the same directory as this file or in the latex path
-** usage
-meeting<TAB> for a new meeting
-action<TAB> for a new action
-<s-f12> to compile a pdf
-* Thing I need to do still                                         :noexport:
-** DONE count actions for ALL meetin
-   CLOSED: [2017-10-01 dim. 14:30]
-   - CLOSING NOTE [2017-10-01 dim. 14:30] \\
-     done
-** DONE Check hoe ik op verschillende plaatsen verschillende latex options kan gebruiken
-CLOSED: [2017-10-02 lun. 12:35]
-   - CLOSING NOTE [2017-10-01 dim. 11:48] \\
-     use latex varibles \def
-** DONE copier alle acties in een nieuwe meeting
-CLOSED: [2017-10-01 dim. 14:59]
-
-** DONE make a table for participants
-CLOSED: [2017-10-02 lun. 13:11]
-- CLOSING NOTE [2017-10-02 lun. 13:11] \\
+* ======== Things to do still ==========================================================================
+** DONE There is a bug when an item has a start date and an "after"
+CLOSED: [2018-02-16 ven. 22:28]
+- CLOSING NOTE [2018-02-16 ven. 22:28] \\
   done
-** DONE make a signature table
-CLOSED: [2017-10-02 lun. 13:11]
-
-** DONE include notes in the action table
-CLOSED: [2017-10-02 lun. 18:00]
-- CLOSING NOTE [2017-10-02 lun. 18:00] \\
-  done
-
-** DONE remove the action table when empty
-CLOSED: [2017-10-06 ven. 12:49]
-
-- CLOSING NOTE [2017-10-06 ven. 12:49] \\
-  done
-* ====================== Réunions ================== :noexport:
-* Hycat 20
-  #+LATEX: \def \crNumber {3/17 }
-  #+LATEX: \def \crDate { 06/10/2017 }
-  #+LATEX: \def \crRelease { 06/10/2017 }
-  *Objet de la réunion: Hycat 20*
-  #+ATTR_LATEX: :environment tabu :align XX :width \textwidth
-  |*Date de la réunion: 05/10/2017*|*Location: teleconf*|
-
-** Participants
-   :PROPERTIES:
-   :UNNUMBERED: 1
-   :END:
-   #+ATTR_LATEX: :environment tabu :align |X|X|X| :width \textwidth
-   |------------------------+-----------------------+---|
-   | Jouke Hijlkema (ONERA) | nathalie Cesco (CNES) |   |
-   |------------------------+-----------------------+---|
-   |                        |                       |   |
-   |------------------------+-----------------------+---|
-   |                        |                       |   |
-   |------------------------+-----------------------+---|
-   |                        |                       |   |
-   |------------------------+-----------------------+---|
-   |                        |                       |   |
-   |------------------------+-----------------------+---|
-   |                        |                       |   |
-   |------------------------+-----------------------+---|
-   |                        |                       |   |
-   |------------------------+-----------------------+---|
-** Diffusion:  participants +
-   #+ATTR_LATEX: :environment tabu :align |X|X|X| :width \textwidth
-   |-----------------------+-------------------------+-----------------------|
-   | Pierre Millan (ONERA) | Jérôme Anthoine (ONERA) | Muriel Brunet (ONERA) |
-   |-----------------------+-------------------------+-----------------------|
-   |                       |                         |                       |
-   |-----------------------+-------------------------+-----------------------|
-   |                       |                         |                       |
-   |-----------------------+-------------------------+-----------------------|
-** Conclusions principales
-   #+ATTR_LATEX: :environment tabu :align |X| :width \textwidth
-   |-----|
-   |<100>|
-   |     |
-   |-----|
-** Approbation
-   #+ATTR_LATEX: :environment tabu :align |X|X|X|X|X| :width \textwidth
-   |--------------+---------------------------------------------+-----------------------+---+---|
-   | Organization | ONERA                                       | CNES                  |   |   |
-   |--------------+---------------------------------------------+-----------------------+---+---|
-   | Position     | Report secretary                            | Responsable programme |   |   |
-   |--------------+---------------------------------------------+-----------------------+---+---|
-   | Name         | Jouke Hijlkema                              | Nathalie Cesco        |   |   |
-   |--------------+---------------------------------------------+-----------------------+---+---|
-   | Signature    | [[~/Documents/Images/Signatures/Signature.pdf]] |                       |   |   |
-   |--------------+---------------------------------------------+-----------------------+---+---|
-   #+LATEX: \pagebreak
-   #+LATEX: \titleformat{\section}
-   #+LATEX:   {\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.8pt]}]
-
-   
-** Ordre du jour
-   - preparation du tir
-   - tir
-   - premièrs résultats
-
-** Compte-rendu
-
-Les prépartions du tir se sont faites sans problèmes notables. le jour du tir onera a decidé de chauffer le moteur pour se metre dans les meme conditions de température que le tir hycat 14.
-Vers 15h30 le moteur etait a 38°c et on à démarer la procedure de tir. le tir se c'est déroulé comme pévu sans incidents.
-Les mesures US sont probablement trop bruité pour être exploitable. La courbure importante des canaux fait que les mesures US souffrent des échos parasites.
-Les premièrs résultats et la comparaison avec les tirs 11 (bloc cylindrique fabriqué par voie classique) et 14 (bloc cylindrique fabriqué par impression 3D) sont données sur les figures [[img:poussée]] et [[img:pression]]. Le implantation des mesures (avec en rouge les US et en violet les pressions) et le plan du chargement sont données sur les figures [[img:mesures]] et [[img:chargement]]
-
-** Conclusions
-Le tir hycat 20 ce c'est déroulé sans difficulté. Les niveaux de pression et poussé sont parfaitement comparable aux tirs de référence. Des analyses plus poussées seront nécessaires pour pouvoir conclure sur l'objectif du tir.
-
-#+CAPTION: Comparaison des poussées
-#+NAME:   img:poussée
-#+ATTR_LATEX: :placement [h!]
-[[file:~/Documents/Images/Hycat20/F1.pdf]]
-#+CAPTION: Comparaison des pressions
-#+NAME:   img:pression
-#+ATTR_LATEX: :placement [h!]
-[[file:~/Documents/Images/Hycat20/Pav11.pdf]]
-#+CAPTION: Implantation des mesures
-#+NAME:   img:mesures
-#+ATTR_LATEX: :placement [h!]
-[[file:~/Documents/Images/Hycat20/mesures.png]]
-#+CAPTION: Plan du bloc
-#+NAME:   img:chargement
-#+ATTR_LATEX: :placement [h!]
-[[file:~/Documents/Images/Hycat20/Chargement.pdf]]
-#+CAPTION: FDT
-#+NAME:   img:chargement
-#+ATTR_LATEX: :placement [h!]
-[[~/Data/Hybrides/Hycat/20/FDT_Hycat20_3D.pdf]]
-#+CAPTION: FDT page 2
-#+NAME:   img:chargement
-#+ATTR_LATEX: :placement [h!]
-[[~/Data/Hybrides/Hycat/20/FDT_Hycat20_3D-2.pdf]]
-
-
-* ======== Notes ==========================================================================
-** PTF 2018
-*** Point tel Nathalie le 8/2/2018
-Dans la PTF (sur 2 ans).
-1: Une poste Algo génétique dans SOPHY avec les géométries non axi-sym
-2: Une poste exploration mesure US sur bloc imprimé
-  - multi fréquence
-  - tester des capteurs de fréquences différentes
-3.1: Une poste a 2 étapes. Étude de faisabilité de l'impression de la paraffine
-3.2: Si possible adaptation de l'imprimante si non optimistation géométrique non axi-sym (poussée, swirl, imbrulées, ...) avec essai a la clef.
-4: Essais sur l'année 2
-budget 90+80=170€k
- 
-* ======== TODOS ==========================================================================
-** DONE Raport final
-CLOSED: [2017-11-17 ven. 09:30] SCHEDULED: <2017-11-15 mer.>
-- CLOSING NOTE [2017-11-17 ven. 09:30]
-** DONE Check R&T calcul
-CLOSED: [2018-01-09 mar. 10:59]
-:PROPERTIES:
-:END:
-- CLOSING NOTE [2018-01-09 mar. 10:59] \\
-  abandoned
-- CLOSING NOTE [2017-12-21 jeu. 09:24] \\
-  Calculations abandoned
-:PROPERTIES:
-:LAST_REPEAT: [2017-12-21 jeu. 09:24]
-:END:
-- CLOSING NOTE [2017-11-17 ven. 11:33
-
-** DONE Faire planches pour rénion du 12/12
-CLOSED: [2017-12-13 mer. 11:38] SCHEDULED: <2017-12-11 lun.>
-- CLOSING NOTE [2017-12-13 mer. 11:38] \\
-  done
-  
-** TODO PTF R&T Hybride 2018
-SCHEDULED: <2018-02-16 ven.>
-
-
-* ======== Plannings ==========================================================================
-
-
-* Planning PTF 2017-2018                                             :myGant:
-:PROPERTIES:
-:ID:       ganttStart
-:ORDERED:  t
-:END:
-#+COLUMNS: %70ITEM(Task) %Effort(eff)
-
-
-** Lot1                                                               :2018:
-:PROPERTIES:
-:ORDERED:  t
-:ID:       Lot1
-:END:
-*** Adaptation algo génétique
-SCHEDULED: <2018-01-01 lun.>
-:PROPERTIES:
-:Effort:   2w
-:ID:       adaptation_algo
-:END:
-*** Integrattion dans SOPHY
-:PROPERTIES:
-:ID:       integration_sophy
-:depends:  adaptation_algo
-:EFFORT:   2w
-:END:
-*** Tests                                                           
-:PROPERTIES:
-:ID:       algo_tests
-:EFFORT:   1w
-:END:
-** Lot2                                                               :2018:
-SCHEDULED: <2018-02-05 lun.>
-:PROPERTIES:
-:ID:       Lot2
-:ORDERED:  t
-:END:
-*** Discussions experts
-:PROPERTIES:
-:ID:  US_discutions
-:EFFORT:   3w
-:END:
-*** Fabrication échantillion
-:PROPERTIES:
-:ID:       US_fab
-:EFFORT:   1w
-:END:
-*** Tests capteurs ONERA
-:PROPERTIES:
-:ID:  US_testsOnera
-:EFFORT:   1w
-:END:
-*** PK mesures US                                               :milestone:
-:PROPERTIES:
-:ID:       
-:LINKED-TO:
-:EFFORT:
-:END:
-** Lot3                                                               :2018:
-SCHEDULED: <2018-03-05 lun.>
-*** phase de prospection modification imprimante 3D
-:PROPERTIES:
-:ID:       L31
-:LINKED-TO:
-:EFFORT:   4w
-:END:
-** Lot4                                                               :2019:
-:PROPERTIES:
-:ORDERED:  t
-:END:
-*** PK sur le Lot4                                              :milestone:
-SCHEDULED: <2018-11-30 ven.>
-:PROPERTIES:
-:ID:       PK_lot4
-:LINKED-TO:
-:EFFORT:
-:END:
-*** Travaux 2019
-SCHEDULED: <2019-01-01 mar.>
-:PROPERTIES:
-:ID:       2
-:LINKED-TO:
-:EFFORT:   1y
-:END:
-
-
-* Gantt                                
-:PROPERTIES:
-:EXPORT_LATEX_CLASS_OPTIONS: [type=planning]
-:EXPORT_LATEX_HEADER: \usepackage{pgfgantt,hyperref,lscape,lmodern,textcomp} \usepackage[utf8]{inputenc}
-:ORDERED:  t
-:END:
-#+BEGIN: org-gantt-chart :id "ganttStart" :file "Images/CnesRT2017_gantt.svg" :imagemagick t :title-calendar "month" :end-date "2018-12-31" :use-id-subheadlines t :weekend-style "{draw=blue!10, line width=0.1pt}" :workday-style "{draw=white!5, line width=.75pt}" :parameters "x unit=1mm, milestone/.append style={fill=red},bar/.append style={fill=blue}"
-[[file:Images/CnesRT2017_gantt.svg]]
-#+END
-
-#+BEGIN: org-gantt-chart :id "ganttStart" :file "Images/CnesRT2018_gantt.svg" :imagemagick t :title-calendar "year,month" :start-date "2019-01-01" :end-date "2019-12-31" :use-tags ("2019") :use-id-subheadlines t :weekend-style "{draw=blue!10, line width=0.1pt}" :workday-style "{draw=white!5, line width=.75pt}":parameters "x unit=1mm, milestone/.append style={fill=red},bar/.append style={fill=blue}"
-[[file:Images/CnesRT2018_gantt.svg]]
-#+END
-
-R
+** TODO Put month marks on the ascii output
 
 
 * Planning PTF 2018-2019
 #+name: planning
-|-----+-----------------------------+--------+----------+--------+-------+----------+------|
-|  Id | Description                 | Parent | Duration | Before | After | Start    | Type |
-|-----+-----------------------------+--------+----------+--------+-------+----------+------|
-|   P | R&T CNES 2018-2019          |        |          |        |       | 1/1/2018 |      |
-|  L1 | Intégration algo dans Sophy |        |          |        |       |          |      |
-| 1.1 | Adaptation algo             | L1     | 2w       |        |       |          |      |
-| 1.2 | Intégration dans SOPHY      | L1     | 2w       |        |   1.1 |          |      |
-| 1.3 | Tests                       | L1     | 1w       |        |   1.2 |          |      |
-|  L2 | Mesures US                  |        |          |        |    L1 |          |      |
-| 2.1 | Discutions experts          | L2     | 4w       |        |       |          |      |
-| 2.2 | Fabrication échantillon     | L2     | 1w       |        |   2.1 |          |      |
-| 2.3 | Test capteurs ONERA         | L2     | 2w       |        |   2.2 |          |      |
-| 2.4 | PK mesures US               | L2     |          |        |   2.3 |          | PK   |
-#+begin_src sh :var tasks=planning tmpFile="/tmp/myGantt.txt" svgFile="./Images/RT_CNES_2018_2019.svg" :results value code
-   echo "$tasks" > /tmp/myGantt.txt
-   ~/Projects/myGantt/myGantt.py "$tmpFile" "$svgFile"
+|-------+-----------------------------+--------+----------+--------+-------+----------+------|
+|    Id | Description                 | Parent | Duration | Before | After | Start    | Type |
+|-------+-----------------------------+--------+----------+--------+-------+----------+------|
+|     P | R&T CNES 2018-2019          |        |          |        |       | 1/1/2018 |      |
+|    L1 | Intégration algo dans Sophy |        |          |        |       |          |      |
+|   1.1 | Adaptation algo             | L1     | 2w       |        |       |          |      |
+|   1.2 | Intégration dans SOPHY      | L1     | 2w       |        |   1.1 |          |      |
+|   1.3 | Tests                       | L1     | 1w       |        |   1.2 |          |      |
+|    L2 | Mesures US                  |        |          |        |    L1 |          |      |
+|   2.1 | Discutions experts          | L2     | 4w       |        |       |          |      |
+|   2.2 | Fabrication échantillon     | L2     | 1w       |        |   2.1 |          |      |
+|   2.3 | Test capteurs ONERA         | L2     | 2w       |        |   2.2 |          |      |
+|   2.4 | PK mesures US               | L2     |          |        |   2.3 |          | KP   |
+|    L3 | Impression paraffine        |        |          |        |    L2 |          |      |
+|   3.1 | Prospection                 | L3     | 4w       |        |       |          |      |
+|   3.2 | PK Impression paraffine     | L3     |          |        |   3.1 | 1/6/2018 | KP   |
+| 3.3.1 | Adaptation + impression     | L3     | 3m       |        |   3.2 | 1/9/2018 |      |
+| 3.3.2 | Optimisation + essai        | L3     | 3m       |        |   3.2 | 1/9/2018 |      |
+[[file:Images/RT_CNES_2018_2019.svg][Gantt]]
+#+begin_src sh :var tasks=planning tmpFile="/tmp/myGantt.txt" svgFile="./Images/RT_CNES_2018_2019.svg" scale="w" :results value code
+   echo "$tasks" > /tmp/myGantt.txt; ~/Projects/myGantt/myGantt.py "$tmpFile" "$svgFile" "$scale"
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC sh
+╔ R&T CNES 2018-2019 240 days ╬════╩════╩════╩════╩════╩════╬════╩════╩════╩════╩════╩════╬════╩════╩════╩════╩════╩════╬════╩════╩════╩════╩════╩════╬════╩════╩════╩════╩════╩════╬════╩════╩════╩════╩════╩════╬════╩════╩════╩════╩════╩════
+╠Intégration algo dans Sophy 
+╚Adaptation algo 
+          ╚Intégration dans SOPHY 
+                    ╚Tests 
+                         ╠Mesures US ------------------------
+                         ╚Discutions experts 
+                                             ╚Fabrication échantillon 
+                                                  ╚Test capteurs ONERA 
+                                                            ╚PK mesures US 
+                                                             ╠Impression paraffine -------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                             ╚Prospection -------
+                                                                                                             ╚PK Impression paraffine 
+                                                                                                                                                                              ╚Adaptation + impression -----------------------------------------
+                                                                                                                                                                              ╚Optimisation + essai --------------------------------------------
 #+END_SRC
 
-#+BEGIN_SRC sh
-||- R&T CNES 2018-2019 25 days
-|Intégration algo dans Sophy
-|Adaptation algo
-          |Intégration dans SOPHY
-                    |Tests
-#+END_SRC
