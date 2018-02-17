@@ -57,4 +57,5 @@ Then if you execute the dynamic block (C-c C-c while somewhere between #+begin_s
 #+END_SRC
 ```
 and a nice svg file 
-<img src="./Tests/Images/Test.svg?sanitize=true>
+![Alt text](./Tests/Images/Test.svg)
+<img src="./Tests/Images/Test.svg">
