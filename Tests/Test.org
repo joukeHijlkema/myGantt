@@ -1,16 +1,22 @@
-# myGantt
+#+STARTUP: indent
 
-This is an attempt tu use the very nice python-gantt library in combination with emacs org-mode.
+# #+name: planning
+# |-----+-----------------------------+--------+----------+--------+-------+----------|
+# |  Id | Description                 | Parent | Duration | Before | After | Start    |
+# |-----+-----------------------------+--------+----------+--------+-------+----------|
+# |   P | R&T CNES 2018-2019          |        |          |        |       | 1/1/2018 |
+# |  L1 | Intégration algo dans Sophy |        |          |        |       |          |
+# | 1.1 | Adaptation algo             | L1     | 2w       |        |       |          |
+# | 1.2 | Intégration dans SOPHY      | L1     | 2w       |        |   1.1 |          |
+# | 1.3 | Tests                       | L1     | 1w       |        |   1.2 |          |
+# #+begin_src sh :var tasks=planning tmpFile="/tmp/myGantt.txt" svgFile="./Images/RT_CNES_2018_2019.svg"
+#    echo "$tasks" > /tmp/myGantt.txt
+#    ~/Projects/myGantt/myGantt.py "$tmpFile" "$svgFile"
+# #+end_src
 
-## Dependencies
-You'll need python-gantt and arrow for the python executable
-`sudo -H pip3 install python-gantt arrow`
-On the emacs side you'd like to install org-mode
+# #+RESULTS:
 
-## Usage
 
-in your emacs org file you need a block like
-```lisp
 * My fancy project
 SCHEDULED: <2018-01-01 lun.>
 :PROPERTIES:
@@ -153,9 +159,6 @@ SCHEDULED: <2018-01-01 lun.>
    ~/Projects/myGantt/myGantt.py "$tmpFile" "$svgFile" "$format"
 #+end_src
 
-```
-Then if you execute the column view and the the dynamic block (C-c C-c while somewhere between #+begin_src and #+end_src) then you'll get :
-```lisp
 #+RESULTS:
 #+BEGIN_SRC sh
 Project My fancy project
@@ -175,6 +178,4 @@ Project My fancy project
                                                                ╚═Or do something else 
                                                                                      ╚█Decide what to do next 
 #+END_SRC
-```
-and a nice svg file :
-<img src="./Tests/Images/Test.svg">
+

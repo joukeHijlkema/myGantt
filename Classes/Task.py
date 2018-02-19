@@ -16,7 +16,7 @@ class Task:
     def __init__(self,items,start):
         "docstring"
         # for i in items:
-        #     print("'%s'"%i.strip())
+            # print("'%s'"%i.strip())
         self.Kids        = []
         self.Id          = items[0].strip()
         self.Description = items[1].strip()
@@ -24,16 +24,33 @@ class Task:
         self.Duration    = self.calcDuration(items[3].strip())
         self.Before      = items[4].strip()
         self.After       = items[5].strip()
-        self.Start       = items[6].strip()
-        self.Type        = items[7].strip()
-        if len(self.Start) == 0:
-            self.Start   = start
-        else:
-            self.Start   = arrow.get(self.Start,"D/M/YYYY")
+        self.Start       = self.getTime(items[6].strip(),start)
+        self.End         = self.getTime(items[7].strip(),arrow.get(workdays.workday(self.Start,self.Duration-1)))
+        # self.Start       = items[6].strip()
+        self.Type        = items[8].strip()
+        # if len(self.Start) == 0:
+        #     self.Start   = start
+        # else:
+        #     self.Start   = arrow.get(self.Start,"D/M/YYYY")
         self.End         = arrow.get(workdays.workday(self.Start,self.Duration-1))
         self.gItem       = None
         self.Depends     = []
-            
+
+    ## --------------------------------------------------------------
+    ## Description : get the time from an emcas string
+    ## NOTE : return bup if not working
+    ## -
+    ## Author : jouke hylkema
+    ## date   : 19-53-2018 15:53:11
+    ## --------------------------------------------------------------
+    def getTime (self,str,bup):
+        try:
+            out = arrow.get(str[1:11],"YYYY-MM-DD")
+            print(out)
+        except:
+            out = bup
+        return out
+        
 
     ## --------------------------------------------------------------
     ## Description : set before
@@ -152,6 +169,10 @@ class Task:
             sign = "╠"
         else:
             sign = "╚"
+        if self.Type =="KP":
+            sign+="█"
+        else:
+            sign+="═"
         o        = workdays.networkdays(start,self.Start)-1
         txt      = "%s%s "%(sign,self.Description)
         s        = self.Duration-len(txt)
@@ -172,6 +193,7 @@ class Task:
         dd = []
         for d in self.Depends:
             dd.append(d.gItem)
+        # print(dd)
         if self.Parent !=None:
             color="#807ACE"
         else :

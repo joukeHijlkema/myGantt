@@ -18,11 +18,27 @@ class Project:
     
     def __init__(self,items):
         "docstring"
-        self.Name     = items[1]
-        self.Start    = arrow.get(items[6],"D/M/YYYY")
-        self.End      = arrow.get(items[6],"D/M/YYYY")
+        self.Name     = items[1].strip()
+        self.Start    = self.getTime(items[6].strip(),arrow.utcnow())
+        self.End      = self.getTime(items[7].strip(),self.Start)
         self.Duration = 0
-        
+        print("Project %s"%self.Name)
+
+    ## --------------------------------------------------------------
+    ## Description : get the time from an emcas string
+    ## NOTE : return bup if not working
+    ## -
+    ## Author : jouke hylkema
+    ## date   : 19-53-2018 15:53:11
+    ## --------------------------------------------------------------
+    def getTime (self,str,bup):
+        try:
+            out = arrow.get(str[1:11],"YYYY-MM-DD")
+            # print(out)
+        except:
+            out = bup
+        return out
+            
     ## --------------------------------------------------------------
     ## Description : Add task
     ## NOTE : 
@@ -56,7 +72,9 @@ class Project:
             if len(tt.Before)>0:
                 tt.setBefore(self.Tasks[tt.Before])
             if len(tt.After)>0:
-                tt.setAfter(self.Tasks[tt.After])
+                # print(tt.After)
+                for t in tt.After.split(","):
+                    tt.setAfter(self.Tasks["%s"%t])
             if tt.Parent != None:
                 tt.Parent.addChild(tt)
                 

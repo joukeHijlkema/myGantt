@@ -12,14 +12,12 @@ import re, sys
 
 fid = open(sys.argv[1],"r")
 Tasks=[]
+
+Head = fid.readline().split("\t")
+Proj = Project(fid.readline().split("\t"))
 for l in fid:
     items = l.split("\t")
-    if items[0] == "Id":
-        pass
-    elif items[0] == "P":
-        Proj = Project(items)
-    else:
-        Proj.addTask(Task(items,Proj.Start))
+    Proj.addTask(Task(items,Proj.Start))
 
 Proj.Parse()
 # Proj.Print()
