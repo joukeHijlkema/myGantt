@@ -46,7 +46,7 @@ class Task:
     def getTime (self,str,bup):
         try:
             out = arrow.get(str[1:11],"YYYY-MM-DD")
-            print(out)
+            # print(out)
         except:
             out = bup
         return out

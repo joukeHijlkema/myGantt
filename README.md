@@ -9,7 +9,7 @@ On the emacs side you'd like to install org-mode
 
 ## Usage
 
-in your emacs org file you need a block like
+in your emacs org file you need a block like (use yasnippets for the tasks)
 ```lisp
 * My fancy project
 SCHEDULED: <2018-01-01 lun.>

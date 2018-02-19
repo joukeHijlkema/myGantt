@@ -18,6 +18,8 @@ class Project:
     
     def __init__(self,items):
         "docstring"
+        # for i in items:
+            # print("'%s'"%i.strip())
         self.Name     = items[1].strip()
         self.Start    = self.getTime(items[6].strip(),arrow.utcnow())
         self.End      = self.getTime(items[7].strip(),self.Start)
